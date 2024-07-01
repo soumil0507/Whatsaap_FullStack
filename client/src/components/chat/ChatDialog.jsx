@@ -1,9 +1,11 @@
 import { Box, Dialog, styled } from "@mui/material"
 
 //components
+import { useContext } from "react";
 import Menu from "./menu/Menu";
 import EmptyChat from "./chat/EmptyChat";
-
+import ChatBox from "./chat/ChatBox";
+import { AccountContext } from "../../context/AccountProvider";
 
 const Component = styled(Box)`
     display: flex;
@@ -34,6 +36,9 @@ const dialogStyle = {
 }
 
 const ChatDialog = () => {
+
+    const {person} = useContext(AccountContext);
+
     return <Dialog
         open={true}
         PaperProps={{sx : dialogStyle}}
@@ -46,9 +51,7 @@ const ChatDialog = () => {
                 </Menu>
             </LeftComponent>
             <RightComponent>
-                <EmptyChat>
-
-                </EmptyChat>
+                {Object.keys(person).length > 0 ? <ChatBox /> : <EmptyChat />}
             </RightComponent>
         </Component>
     </Dialog>
